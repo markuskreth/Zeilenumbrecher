@@ -15,13 +15,19 @@ public class TextUmbrecher {
 		String output;
 
 		int lastIndexOf = input.lastIndexOf(" ", lineLength);
+		int nextStartIndex = lastIndexOf + 1;
 
+		if (lastIndexOf <0) {
+		   lastIndexOf = lineLength;
+		   nextStartIndex = lastIndexOf;
+		}
+		
 		output = input.substring(0, lastIndexOf);
 		
 		if(input.length()-lastIndexOf - lineLength < 0) {
-			output += "\n" + input.substring(lastIndexOf + 1);
+			output += "\n" + input.substring(nextStartIndex);
 		} else {
-			String substring = input.substring(lastIndexOf + 1);
+			String substring = input.substring(nextStartIndex);
 			output += "\n" + split(substring, lineLength);
 			
 		}

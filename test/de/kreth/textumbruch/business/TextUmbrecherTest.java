@@ -49,6 +49,16 @@ public class TextUmbrecherTest {
 	}
 	
 	@Test
+	public void testBreakNoSpace() {
+
+      String input = "LoreipsumLoreipsum";
+
+      String expected = "Loreipsum\nLoreipsum";
+      String result = brecher.umbruch(input, 9);
+      assertEquals(expected, result);
+	}
+	
+	@Test
 	public void testLineBreakWithEmptyLines() {
 		String input = "\n\t\tint lineLength = Integer.parseInt(textFieldZeichenAnzahl.getText());\n\t\ttextAreaOutput.setText(umbrecher.umbruch(textAreaInput.getText(), lineLength));";
 		String expected = "\n\t\tint lineLength = Integer.parseInt(textFieldZeichenAnzahl.getText());\n\t\ttextAreaOutput.setText(umbrecher.umbruch(textAreaInput.getText(), lineLength));";
