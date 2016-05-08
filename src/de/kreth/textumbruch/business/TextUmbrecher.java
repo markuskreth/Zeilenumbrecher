@@ -7,8 +7,18 @@ public class TextUmbrecher {
 	public String umbruch(String input, int lineLength) {
 	   
 	   output = new StringBuilder(input.length()+10);
-	   
-		split(input, lineLength);
+	   String[] split = input.split("\r?\n");
+	   if(split.length == 1)
+	      split(input, lineLength);
+	   else {
+	      int count = 0;
+	      for (String s : split) {
+	         count++;
+	         split(s, lineLength);
+	         if(count<split.length)
+	            output.append("\n");
+	      }
+	   }
 		
 		return output.toString();
 	}
