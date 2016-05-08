@@ -1,8 +1,11 @@
 package de.kreth.textumbruch.business;
 
+import org.apache.fop.hyphenation.*;
+
 public class TextUmbrecher {
    
    private StringBuilder output;
+   private Hyphenator h = new Hyphenator("de", null,3,4);
    
 	public String umbruch(String input, int lineLength) {
 	   
@@ -29,17 +32,9 @@ public class TextUmbrecher {
 		   return;
 		}
 
-		int lastIndexOf = input.lastIndexOf(" ", lineLength);
-		int nextStartIndex = lastIndexOf + 1;
-
-		if (lastIndexOf <0) {
-		   lastIndexOf = lineLength;
-		   nextStartIndex = lastIndexOf;
-		}
+		int nextStartIndex = findSplitIndex(input, lineLength);
 		
-		output.append(input.substring(0, lastIndexOf)).append("\n");
-		
-		if(input.length()-lastIndexOf - lineLength < 0) {
+		if(input.length() - nextStartIndex - lineLength < 0) {
 			output.append(input.substring(nextStartIndex));
 		} else {
 		   String substring = input.substring(nextStartIndex);
@@ -47,5 +42,47 @@ public class TextUmbrecher {
 		}
 		
 	}
+
+   private int findSplitIndex(String input, int lineLength) {
+
+      int lastIndexOf = input.lastIndexOf(" ", lineLength);
+      int nextStartIndex = lastIndexOf + 1;
+
+      if (lastIndexOf <0) {
+         lastIndexOf = lineLength;
+         nextStartIndex = lastIndexOf;
+      }
+      
+      output.append(input.substring(0, lastIndexOf));
+      
+      nextStartIndex = checkHyphenation(nextStartIndex, input, lineLength);
+      output.append("\n");
+      
+      return nextStartIndex;
+   }
+
+   private int checkHyphenation(int nextStartIndex, String input, int lineLength) {
+      int endIndex = input.indexOf(" ", nextStartIndex);
+      
+      if (endIndex >0) {
+
+         Hyphenation hn = h.hyphenate(input.substring(nextStartIndex, endIndex));
+         
+         if(hn != null) {
+
+            int[] indices = hn.getHyphenationPoints();
+            for (int i=indices.length-1; i>=0; i--) {
+               if(nextStartIndex + indices[i] <= lineLength -1){
+                  output.append(" ").append(input.substring(nextStartIndex, nextStartIndex + indices[i])).append("-");
+                  return nextStartIndex + indices[i];
+                  
+               }
+            }
+         }
+         
+      }
+      
+      return nextStartIndex;
+   }
 
 }

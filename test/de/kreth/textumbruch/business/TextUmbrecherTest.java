@@ -47,16 +47,36 @@ public class TextUmbrecherTest {
 		String result = brecher.umbruch(input, 12);
 		assertEquals(expected, result);
 	}
-	
-	@Test
-	public void testBreakNoSpace() {
+   
+   @Test
+   public void testBreakNoSpace() {
 
       String input = "LoreipsumLoreipsum";
 
       String expected = "Loreipsum\nLoreipsum";
       String result = brecher.umbruch(input, 9);
       assertEquals(expected, result);
-	}
+   }
+
+   @Test
+   public void testBreakWithHyph() {
+
+      String input = "Dies ist eine Abkürzung gewesen!";
+
+      String expected = "Dies ist eine Abkür-\nzung gewesen!";
+      String result = brecher.umbruch(input, 20);
+      assertEquals(expected, result);
+   }
+
+   @Test
+   public void testBreakWithHyphLastWord() {
+
+      String input = "Dies ist eine Abkürzung!";
+
+      String expected = "Dies ist eine Abkür-\nzung!";
+      String result = brecher.umbruch(input, 20);
+      assertEquals(expected, result);
+   }
 
    @Test
    public void testLineBreakWithEmptyLines() {
