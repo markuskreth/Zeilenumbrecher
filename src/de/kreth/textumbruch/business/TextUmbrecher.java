@@ -1,18 +1,23 @@
 package de.kreth.textumbruch.business;
 
 public class TextUmbrecher {
-
+   
+   private StringBuilder output;
+   
 	public String umbruch(String input, int lineLength) {
-		String output = split(input, lineLength);
+	   
+	   output = new StringBuilder(input.length()+10);
+	   
+		split(input, lineLength);
 		
-		return output;
+		return output.toString();
 	}
 
-	private String split(String input, int lineLength) {
-		if (input.length()<=lineLength)
-			return input;
-		
-		String output;
+	private void split(String input, int lineLength) {
+		if (input.length()<=lineLength) {
+		   output.append(input);
+		   return;
+		}
 
 		int lastIndexOf = input.lastIndexOf(" ", lineLength);
 		int nextStartIndex = lastIndexOf + 1;
@@ -22,17 +27,15 @@ public class TextUmbrecher {
 		   nextStartIndex = lastIndexOf;
 		}
 		
-		output = input.substring(0, lastIndexOf);
+		output.append(input.substring(0, lastIndexOf)).append("\n");
 		
 		if(input.length()-lastIndexOf - lineLength < 0) {
-			output += "\n" + input.substring(nextStartIndex);
+			output.append(input.substring(nextStartIndex));
 		} else {
-			String substring = input.substring(nextStartIndex);
-			output += "\n" + split(substring, lineLength);
-			
+		   String substring = input.substring(nextStartIndex);
+		   split(substring, lineLength);
 		}
 		
-		return output;
 	}
 
 }

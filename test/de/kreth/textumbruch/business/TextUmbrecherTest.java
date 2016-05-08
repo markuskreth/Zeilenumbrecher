@@ -62,7 +62,7 @@ public class TextUmbrecherTest {
 	public void testLineBreakWithEmptyLines() {
 		String input = "\n\t\tint lineLength = Integer.parseInt(textFieldZeichenAnzahl.getText());\n\t\ttextAreaOutput.setText(umbrecher.umbruch(textAreaInput.getText(), lineLength));";
 		String expected = "\n\t\tint lineLength = Integer.parseInt(textFieldZeichenAnzahl.getText());\n\t\ttextAreaOutput.setText(umbrecher.umbruch(textAreaInput.getText(), lineLength));";
-		String resutl = brecher.umbruch(input, 70);
-		assertEquals(expected, resutl);
+		String result = brecher.umbruch(input, 70);
+		assertEquals(expected, result);
 	}
 }
