@@ -15,23 +15,18 @@ public class TextUmbrecher {
 		String output;
 
 		int lastIndexOf = input.lastIndexOf(" ", lineLength);
+
+		output = input.substring(0, lastIndexOf);
 		
-		if (lastIndexOf >0 && lastIndexOf < lineLength) {
-			output = input.substring(0, lastIndexOf);
+		if(input.length()-lastIndexOf - lineLength < 0) {
+			output += "\n" + input.substring(lastIndexOf + 1);
+		} else {
+			String substring = input.substring(lastIndexOf + 1);
+			output += "\n" + split(substring, lineLength);
 			
-			if(input.length()-lastIndexOf - lineLength < 0) {
-				output += "\n" + input.substring(lastIndexOf + 1);
-			} else {
-				String substring = input.substring(lastIndexOf + 1);
-				lastIndexOf = substring.lastIndexOf(" ", lineLength);
-				output += "\n" + substring.substring(0, lastIndexOf);
-				
-				if(substring.length() - lastIndexOf - lineLength < 0){
-					output += "\n" + substring.substring(lastIndexOf + 1);
-				}
-			}
 		}
-		return null;
+		
+		return output;
 	}
 
 }
