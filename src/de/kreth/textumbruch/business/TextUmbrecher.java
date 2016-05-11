@@ -63,10 +63,13 @@ public class TextUmbrecher {
 
    private int checkHyphenation(int nextStartIndex, String input, int lineLength) {
       int endIndex = input.indexOf(" ", nextStartIndex);
-      
+      if (endIndex < 0) {
+    	  endIndex = input.length() - 1;
+      }
       if (endIndex >0) {
 
-         Hyphenation hn = h.hyphenate(input.substring(nextStartIndex, endIndex));
+         String lastWord = input.substring(nextStartIndex, endIndex);
+		Hyphenation hn = h.hyphenate(lastWord);
          
          if(hn != null) {
 
@@ -80,7 +83,7 @@ public class TextUmbrecher {
             }
          }
          
-      }
+      } 
       
       return nextStartIndex;
    }

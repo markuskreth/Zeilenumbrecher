@@ -69,6 +69,16 @@ public class TextUmbrecherTest {
    }
 
    @Test
+   public void testBreakWithHyphLastWordAndMore() {
+
+      String input = "Dies ist eine Abkürzung! Nur eine.";
+
+      String expected = "Dies ist eine Abkür-\nzung! Nur eine.";
+      String result = brecher.umbruch(input, 20);
+      assertEquals(expected, result);
+   }
+
+   @Test
    public void testBreakWithHyphLastWord() {
 
       String input = "Dies ist eine Abkürzung!";

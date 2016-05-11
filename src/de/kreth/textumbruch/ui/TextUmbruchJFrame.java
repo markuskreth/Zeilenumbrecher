@@ -8,6 +8,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.NumberFormatter;
 
 import de.kreth.textumbruch.business.TextUmbrecher;
 
@@ -18,14 +19,17 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.text.NumberFormat;
 import java.awt.event.ActionEvent;
 import javax.swing.BoxLayout;
 import javax.swing.JScrollPane;
+import javax.swing.JFormattedTextField;
 
 public class TextUmbruchJFrame extends JFrame {
 
+	private static final long serialVersionUID = 3308832678586978984L;
 	private JPanel contentPane;
-	private JTextField textFieldZeichenAnzahl;
+	private JFormattedTextField textFieldZeichenAnzahl;
 	private final TextUmbrecher umbrecher;
 
 	/**
@@ -90,10 +94,10 @@ public class TextUmbruchJFrame extends JFrame {
 		JLabel lblBreiteInZeichen = new JLabel("Breite in Zeichen:");
 		panel.add(lblBreiteInZeichen);
 		
-		textFieldZeichenAnzahl = new JTextField();
+		textFieldZeichenAnzahl = new JFormattedTextField(NumberFormat.getIntegerInstance());
+		textFieldZeichenAnzahl.setText("35");
 		panel.add(textFieldZeichenAnzahl);
 		textFieldZeichenAnzahl.setColumns(10);
-		textFieldZeichenAnzahl.setInputVerifier(new IntegerInputVerifier());
 		
 		JButton btnUmbreche = new JButton("Umbreche");
 		btnUmbreche.addActionListener(new ActionListener() {
@@ -107,6 +111,7 @@ public class TextUmbruchJFrame extends JFrame {
 				}
 			}
 		});
+		
 		panel.add(btnUmbreche);
 	}
 
