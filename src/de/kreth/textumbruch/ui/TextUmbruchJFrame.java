@@ -2,35 +2,32 @@ package de.kreth.textumbruch.ui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
-import javax.swing.InputVerifier;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.text.NumberFormatter;
-
-import de.kreth.textumbruch.business.TextUmbrecher;
-
-import java.awt.GridLayout;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.JButton;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.NumberFormat;
-import java.awt.event.ActionEvent;
+
 import javax.swing.BoxLayout;
-import javax.swing.JScrollPane;
+import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.border.EmptyBorder;
+
+import de.kreth.textumbruch.business.TextUmbrecher;
 
 public class TextUmbruchJFrame extends JFrame {
 
 	private static final long serialVersionUID = 3308832678586978984L;
 	private JPanel contentPane;
-	private JFormattedTextField textFieldZeichenAnzahl;
-	private final TextUmbrecher umbrecher;
+	JFormattedTextField textFieldZeichenAnzahl;
+	final TextUmbrecher umbrecher;
+	JTextArea textAreaOutput;
+	JButton btnUmbreche;
+	JTextArea textAreaInput;
 
 	/**
 	 * Launch the application.
@@ -75,7 +72,7 @@ public class TextUmbruchJFrame extends JFrame {
 		JScrollPane scrollPane_1 = new JScrollPane();
 		panelCenter.add(scrollPane_1);
 		
-		JTextArea textAreaInput = new JTextArea();
+		textAreaInput = new JTextArea();
 		scrollPane_1.setViewportView(textAreaInput);
 		
 		JLabel lblNewLabel_1 = new JLabel("Nachher");
@@ -84,7 +81,7 @@ public class TextUmbruchJFrame extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		panelCenter.add(scrollPane);
 		
-		JTextArea textAreaOutput = new JTextArea();
+		textAreaOutput = new JTextArea();
 		scrollPane.setViewportView(textAreaOutput);
 		textAreaOutput.setEditable(false);
 		
@@ -99,7 +96,7 @@ public class TextUmbruchJFrame extends JFrame {
 		panel.add(textFieldZeichenAnzahl);
 		textFieldZeichenAnzahl.setColumns(10);
 		
-		JButton btnUmbreche = new JButton("Umbreche");
+		btnUmbreche = new JButton("Umbreche");
 		btnUmbreche.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -115,15 +112,4 @@ public class TextUmbruchJFrame extends JFrame {
 		panel.add(btnUmbreche);
 	}
 
-	private class IntegerInputVerifier extends InputVerifier {
-
-		@Override
-		public boolean verify(JComponent input) {
-			String inputText = ((JTextField)input).getText().trim();
-			if (inputText.matches("\\d*"))
-				return true;
-			return false;
-		}
-		
-	}
 }
